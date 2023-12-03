@@ -1,23 +1,25 @@
 from flask import Flask, request, make_response
+from translation_utils import translate_statement_pairs, translate_statements
 
 app = Flask(__name__)
 
-# Translation route
 @app.route('/translate', methods = ['POST'])
 def translate():
     try:
         # Grab request contents
         req = request.get_json()
         data = req['data']
-        translation_type = req['type']
+        translation_type = req['listType']
+        from_lang = req['sourceLang']
+        to_lang = req['targetLang']
 
         # Translate based on list type (single / pairs)
         # TODO VALIDATE REQUEST BETTER
         translated_data = []
         if translation_type == 'single':
-            translated_data = translate_statements(data)
+            translated_data = translate_statements(data, from_lang, to_lang)
         elif translation_type == 'pairs':
-            translated_data = translate_statement_pairs(data)
+            translated_data = translate_statement_pairs(data, from_lang, to_lang)
         else:
             return make_response({'error': 'Invalid list type! Should be single or pairs.'})
 
@@ -28,31 +30,28 @@ def translate():
     except Exception:
         return make_response({'error': Exception}, 500)
     
-def translate_statements(item_list):
-    translated_list = []
-    
-    for item in item_list:
-        ti = translate(item)
-        translated_list.append(ti)
+@app.route('/evaluate', methods = ['POST'])
+def evaluate():
+    try:
+        req = request.get_json()
+        source_items = req['sourceItems']
+        new_items = req['newItems']
+        bt_items = req['backtranslatedItems']
+        from_lang = req['sourceLang']
+        to_lang = req['targetLang']
 
-    return translated_list
+        # TODO
+        # 1. GEMBA (src + new)
+        # 2. Compare src + bt
+        # 3. Compare src + bt (incl. synonyms)
+        # 4. Custom semantic match eval. + suggestions
 
-def translate_statement_pairs(item_list):
-    translated_pairs = []
+        return make_response({
+            'gemba': '***',
+            'wbw': 70,
+            'wbws': 84,
+            'semantic': 'The translation achieves overall good semantic match.'
+        }, 200)
 
-    for pair in item_list:
-        translated_pair = []
-
-        for item in pair:
-            ti = translate(item)
-            translated_pair.append(ti)
-
-        translated_pairs.append(translated_pair)
-
-    return translated_pairs
-
-def translate(item):
-    print('translating <<', item, '>>')
-    # TODO: CALL TRANSLATOR
-    translated_item = item
-    return translated_item
+    except Exception:
+        return make_response({'error': Exception}, 500)
