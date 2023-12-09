@@ -1,3 +1,11 @@
+import deepl
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+auth_key = os.getenv('DEEPL_AUTH_KEY')
+
 def translate_statements(item_list, from_lang, to_lang):
     translated_list = []
     
@@ -24,7 +32,10 @@ def translate_statement_pairs(item_list, from_lang, to_lang):
 def translate(item, from_lang, to_lang):
     print('translating <<', item, '>>', 'from', from_lang, 'to', to_lang)
 
-    # TODO: CALL TRANSLATOR
+    translator = deepl.Translator(auth_key)
+    result = translator.translate_text(item, source_lang = from_lang, target_lang = to_lang)
     
-    translated_item = item
+    print('>>', result.text)
+
+    translated_item = result.text
     return translated_item
