@@ -1,8 +1,16 @@
 from flask import Flask, request, make_response
+from flask_cors import CORS
+import os
+from dotenv import load_dotenv
+
 from translation_utils import translate_statement_pairs, translate_statements
 from evaluation_utils import evaluate_gemba
 
+
 app = Flask(__name__)
+load_dotenv()
+frontend_url = os.getenv('FRONTEND_URL')
+CORS (app, origins = [frontend_url])
 
 @app.route('/translate', methods = ['POST'])
 def translate():
