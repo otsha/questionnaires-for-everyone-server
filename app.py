@@ -4,8 +4,7 @@ import os
 from dotenv import load_dotenv
 
 from translation_utils import translate_statement_pairs, translate_statements
-from evaluation_utils import evaluate_gemba
-
+from evaluation_utils import evaluate_gemba, evaluate_ssa
 
 app = Flask(__name__)
 load_dotenv()
@@ -59,16 +58,19 @@ def evaluate():
         if 'error' in gemba_res:
             raise AssertionError(gemba_res['error'])
         
-        # TODO
-        # 2. Compare src + bt WBW
-        # 3. Compare src + bt WBW (incl. synonyms)
-        # 4. Custom semantic match eval. + suggestions
+        # 2. Semantic similarity assessment
+
+        ssa_res = evaluate_ssa(source_items, new_items, from_lang, to_lang, list_type)
+        print(ssa_res)
+
+        if 'error' in ssa_res:
+            raise AssertionError(ssa_res['error'])
+        
+        # TODO: COMPARE EXPRESSIONS FOR A SECOND SIMILARITY SCORE?
 
         return make_response({
             'gemba': gemba_res['score'],
-            'wbw': 70,
-            'wbws': 84,
-            'semantic': 'The translation achieves overall good semantic match.'
+            'semantic': ssa_res
         }, 200)
 
     except Exception as e:
