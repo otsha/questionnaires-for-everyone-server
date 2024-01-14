@@ -1,6 +1,5 @@
 # Refer to https://github.com/openai/openai-python for OpenAI library documentation
 
-import requests
 import os
 from dotenv import load_dotenv
 from openai import OpenAI
