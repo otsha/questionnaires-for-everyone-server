@@ -90,7 +90,6 @@ def evaluate_ssa(source, translation, src_lang, tgt_lang, list_type):
             response_format = { 'type': 'json_object' }
         )
 
-        print(response)
         return response.choices[0].message.content
     except Exception as e:
         return {'error': e}

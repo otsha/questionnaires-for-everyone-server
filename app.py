@@ -53,7 +53,6 @@ def evaluate():
         # 1. GEMBA (src + new)
 
         gemba_res = evaluate_gemba(source_items, new_items, from_lang, to_lang, list_type)
-        print(gemba_res)
 
         if 'error' in gemba_res:
             raise AssertionError(gemba_res['error'])
@@ -61,7 +60,6 @@ def evaluate():
         # 2. Semantic similarity assessment
 
         ssa_res = evaluate_ssa(source_items, new_items, from_lang, to_lang, list_type)
-        print(ssa_res)
 
         if 'error' in ssa_res:
             raise AssertionError(ssa_res['error'])

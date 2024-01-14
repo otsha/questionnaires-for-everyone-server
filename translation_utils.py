@@ -29,8 +29,6 @@ def translate_statement_pairs(item_list, from_lang, to_lang):
     return translated_pairs
 
 def translate(item, from_lang, to_lang):
-    print('translating <<', item, '>>', 'from', from_lang, 'to', to_lang)
-
     translator = deepl.Translator(auth_key)
     result = translator.translate_text(item, source_lang = from_lang, target_lang = to_lang)
 
