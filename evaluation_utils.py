@@ -95,7 +95,7 @@ def evaluate_ssa(source, translation, src_lang, tgt_lang, list_type):
     
 # SSA GPT instruction formatting
 def format_ssa_command(src_lang, tgt_lang, source, target):
-    fmt = """Assess the semantic similarity of the following texts in {source_lang} and {target_lang} on a scale from 0 (no semantic similarity at all) to 100 (perfect semantic similarity). Justify the score. Suggest changes to the FI version (i.e. word or expression replacements) as complete sentences to improve the score, but only if the similarity score is below 80.
+    fmt = """Assess the semantic similarity of the following texts in {source_lang} and {target_lang} on a scale from 0 (no semantic similarity at all) to 100 (perfect semantic similarity). Justify the score. Provide a single paragraph suggesting changes to the {target_lang} version (i.e. word or expression replacements) to improve the score.
 
 {source_lang}:  \"{source_text}\"
 {target_lang}: \"{target_text}\"
@@ -104,5 +104,5 @@ Respond with JSON only in the following format:
 
 score
 reasoning,
-suggestions""".format(source_lang = src_lang, target_lang = tgt_lang, source_text = source, target_text = target)
+suggestion""".format(source_lang = src_lang, target_lang = tgt_lang, source_text = source, target_text = target)
     return fmt
