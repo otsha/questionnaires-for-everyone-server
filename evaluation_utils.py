@@ -48,7 +48,7 @@ def evaluate_gemba(source, translation, src_lang, tgt_lang, list_type):
                     'content': str(command),
                 }
             ],
-            model = 'gpt-3.5-turbo',
+            model = 'gpt-4',
             max_tokens = 1
         )
 
@@ -84,7 +84,7 @@ def evaluate_ssa(source, translation, src_lang, tgt_lang, list_type):
                     'content': str(command),
                 }
             ],
-            model = 'gpt-3.5-turbo-1106',
+            model = 'gpt-4-1106-preview',
             max_tokens = 400,
             response_format = { 'type': 'json_object' }
         )
