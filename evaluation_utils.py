@@ -85,7 +85,7 @@ def evaluate_ssa(source, translation, src_lang, tgt_lang, list_type):
                 }
             ],
             model = 'gpt-4-1106-preview',
-            max_tokens = 400,
+            max_tokens = 1000,
             response_format = { 'type': 'json_object' }
         )
 
