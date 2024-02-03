@@ -1,4 +1,10 @@
-# Questionnaire Translator Tool (Backend)
+# Questionnaires for Everyone (SERVER)
+
+The backend component for our web application designed for questionnaire translation. Handles translation and prompting GPT-4 for translation quality evaluation.
+
+Translations are performed by calling the DeepL API. The evaluation methods offered are GEMBA-DA\[noref\] (Kocmi & Federmann, 2023) and a custom semantic similarity assessment ("SSA"). The latter prompts a verbal evaluation of how semantically close the translation is to the original, as this is often the most important factor in questionnaire translation compared to, say, exact word-by-word match (Su & Parham, 2002).
+
+The application frontend is available [here](https://github.com/otsha/questionnaires-for-everyone).
 
 ## Running the Server Locally
 
@@ -39,3 +45,5 @@ With the current `Procfile`, the server should be deployable directly to Heroku 
 ## References
 
 > Kocmi, T., & Federmann, C. (2023). Large language models are state-of-the-art evaluators of translation quality. *arXiv preprint*. arXiv:2302.14520.
+
+> Su, C. T., & Parham, L. D. (2002). Generating a valid questionnaire translation for cross-cultural use. *The American Journal of Occupational Therapy, 56*(5), 581-585.
